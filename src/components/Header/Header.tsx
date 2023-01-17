@@ -37,7 +37,10 @@ function Header() {
         ) : (
           <BiSun className="w-5 h-5" />
         )}
-        <button className="font-medium" onClick={handleTheme}>
+        <button
+          className="font-medium text-sm md:text-base"
+          onClick={handleTheme}
+        >
           {theme === "light" ? "Dark mode" : "Light mode"}
         </button>
       </div>

@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 
 function Home() {
   return (
-    <div className="max-w-sm md:max-w-6xl p-10 mx-auto">
+    <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto">
       <div className="flex justify-between flex-col gap-4 px-3 md:flex-row md:gap-0 md:px-0">
         <input
           type="text"
