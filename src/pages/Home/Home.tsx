@@ -4,7 +4,11 @@ import { countryType, filterOptions } from "../../types";
 
 function Home() {
   const [countries, setCountries] = useState<countryType[] | null>([]);
+  const [searchCountries, setSeachCountries] = useState<countryType[] | null>(
+    []
+  );
   const [filter, setFilter] = useState<filterOptions>("all");
+  const [search, setSearch] = useState("");
 
   const fetchCountries = async () => {
     const data = await fetch("https://restcountries.com/v3.1/all");
@@ -17,9 +21,14 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (countries && countries.length > 0)
-      countries.forEach((country) => console.log(country.flags));
-  }, [countries]);
+    if (search)
+      setSeachCountries(
+        countries &&
+          countries.filter((country) =>
+            country.name.common.toLowerCase().includes(search.toLowerCase())
+          )
+      );
+  }, [search]);
 
   return (
     <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto">
@@ -28,6 +37,8 @@ function Home() {
           type="text"
           className="bg-white dark:bg-slate-700 w-full md:w-72 h-10 border-none rounded-sm shadow-sm dark:text-white text-sm font-semibold p-4 select-none outline-none opacity-90 focus:opacity-100 transition-opacity"
           placeholder="Search for a country..."
+          value={search}
+          onChange={({ target }) => setSearch(target.value)}
         />
         <select
           id="countries"

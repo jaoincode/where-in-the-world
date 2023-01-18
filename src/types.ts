@@ -9,7 +9,9 @@ export type filterOptions =
 export type countryType = {
   capital: string;
   flags: { png: string; svg: string };
-  name: string;
+  name: {
+    common: string;
+  };
   population: number;
   region: string;
 };
