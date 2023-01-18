@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 
-type filterOptions =
-  | "all"
-  | "america"
-  | "africa"
-  | "asia"
-  | "oceania"
-  | "antarctica";
+import { countryType, filterOptions } from "../../types";
 
 function Home() {
-  const [countries, setCountries] = useState<any>([]);
+  const [countries, setCountries] = useState<countryType[] | null>([]);
   const [filter, setFilter] = useState<filterOptions>("all");
+
+  const fetchCountries = async () => {
+    const data = await fetch("https://restcountries.com/v3.1/all");
+    const countriesJson = await data.json();
+    setCountries(countriesJson);
+  };
+
+  useEffect(() => {
+    fetchCountries();
+  }, []);
+
+  useEffect(() => {
+    if (countries && countries.length > 0)
+      countries.forEach((country) => console.log(country.flags));
+  }, [countries]);
 
   return (
     <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto">
