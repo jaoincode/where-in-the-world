@@ -27,7 +27,7 @@ function Header() {
   };
 
   return (
-    <header className="w-full h-16 bg-white shadow flex items-center justify-between px-5 md:px-10 lg:px-20 dark:bg-slate-700 dark:text-white ">
+    <header className="w-full h-16 bg-white shadow flex items-center justify-between px-5 md:px-10 positi lg:px-20 dark:bg-slate-700 dark:text-white fixed z-50">
       <h1 className="font-bold text-base md:text-lg lg:text-xl">
         Where in the world?
       </h1>

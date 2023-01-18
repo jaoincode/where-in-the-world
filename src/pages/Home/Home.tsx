@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Countries from "../../components/Countries";
 
 import { countryType, filterOptions } from "../../types";
 
@@ -32,7 +33,7 @@ function Home() {
 
   return (
     <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto">
-      <div className="flex justify-between flex-col gap-4 px-3 md:flex-row md:gap-0 md:px-0">
+      <div className="flex justify-between flex-col gap-4 px-3 md:flex-row md:gap-0 md:px-0 mt-16">
         <input
           type="text"
           className="bg-white dark:bg-slate-700 w-full md:w-72 h-10 border-none rounded-sm shadow-sm dark:text-white text-sm font-semibold p-4 select-none outline-none opacity-90 focus:opacity-100 transition-opacity"
@@ -58,6 +59,12 @@ function Home() {
           <option value="antarctica">Antarctica</option>
         </select>
       </div>
+      {countries && countries.length > 0 && !search && (
+        <Countries countries={countries} />
+      )}
+      {countries && searchCountries && searchCountries.length > 0 && search && (
+        <Countries countries={searchCountries} />
+      )}
     </div>
   );
 }
