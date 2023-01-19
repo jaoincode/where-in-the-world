@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
+
 import { BiMoon, BiSun } from "react-icons/bi";
 
 function Header() {
@@ -28,9 +31,14 @@ function Header() {
 
   return (
     <header className="w-full h-16 bg-white shadow flex items-center justify-between px-5 md:px-10 positi lg:px-20 dark:bg-slate-700 dark:text-white fixed z-50">
-      <h1 className="font-bold text-base md:text-lg lg:text-xl">
+      <Link
+        to="/"
+        className="cursor-pointer font-bold text-lg md:text-lg lg:text-xl"
+      >
+        {" "}
         Where in the world?
-      </h1>
+      </Link>
+
       <div className="flex gap-1 items-center">
         {theme === "light" ? (
           <BiMoon className="w-5 h-5" />

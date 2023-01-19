@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import Countries from "../../components/Countries";
 
 import { countryType, filterOptions } from "../../types";
@@ -6,6 +7,9 @@ import { countryType, filterOptions } from "../../types";
 function Home() {
   const [countries, setCountries] = useState<countryType[] | null>([]);
   const [searchCountries, setSeachCountries] = useState<countryType[] | null>(
+    []
+  );
+  const [countriesRegion, setCountriesRegion] = useState<countryType[] | null>(
     []
   );
   const [filter, setFilter] = useState<filterOptions>("all");
@@ -22,6 +26,21 @@ function Home() {
   }, []);
 
   useEffect(() => {
+    if (countries && countries.length > 0) filterByRegion();
+    if (filter !== "all" && search) setFilter("all");
+  }, [filter]);
+
+  const filterByRegion = () => {
+    if (countries && countries.length > 0) {
+      if (filter === "all") setCountriesRegion(countries);
+      else
+        setCountriesRegion(
+          countries.filter((country) => country.region.toLowerCase() === filter)
+        );
+    }
+  };
+
+  useEffect(() => {
     if (search)
       setSeachCountries(
         countries &&
@@ -29,6 +48,8 @@ function Home() {
             country.name.common.toLowerCase().includes(search.toLowerCase())
           )
       );
+
+    if (search && filter !== "all") setFilter("all");
   }, [search]);
 
   return (
@@ -42,8 +63,9 @@ function Home() {
           onChange={({ target }) => setSearch(target.value)}
         />
         <select
+          disabled={!!search}
           id="countries"
-          className="w-full md:w-40  h-10 text-sm font-semibold opacity-90 focus:opacity-100 bg-white dark:bg-slate-700 dark:text-white outline-none px-4 rounded-sm"
+          className="w-full md:w-40  h-10 text-sm font-semibold opacity-90 cursor-pointer focus:opacity-100 bg-white dark:bg-slate-700 dark:text-white outline-none px-4 rounded-sm disabled:opacity-70 disabled:cursor-not-allowed"
           name="regionFilter"
           value={filter}
           onChange={({ target }) => setFilter(target.value as filterOptions)}
@@ -52,19 +74,20 @@ function Home() {
             Filter by Region
           </option>
           <option value="all">All</option>
-          <option value="america">America</option>
+          <option value="americas">America</option>
           <option value="africa">Africa</option>
           <option value="asia">Asia</option>
           <option value="oceania">Oceania</option>
-          <option value="antarctica">Antarctica</option>
+          <option value="antarctic">Antarctica</option>
         </select>
       </div>
-      {countries && countries.length > 0 && !search && (
+      {countries && countries.length > 0 && !search && filter === "all" && (
         <Countries countries={countries} />
       )}
       {countries && searchCountries && searchCountries.length > 0 && search && (
         <Countries countries={searchCountries} />
       )}
+      {countriesRegion && filter && <Countries countries={countriesRegion} />}
     </div>
   );
 }

@@ -1,10 +1,11 @@
 export type filterOptions =
   | "all"
-  | "america"
+  | "americas"
   | "africa"
   | "asia"
   | "oceania"
-  | "antarctica";
+  | "antarctic"
+  | "europe";
 
 export type countryType = {
   capital: string;
