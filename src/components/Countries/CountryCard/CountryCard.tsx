@@ -8,7 +8,7 @@ function CountryCard({ country }: { country: countryType }) {
   const { name, region, capital, flags, population } = country;
 
   return (
-    <Link to={`/country/${name}`}>
+    <Link to={`/country/${name.common}`}>
       <div className="w-56 h-60 bg-white shadow-sm rounded-md dark:bg-slate-700 dark:text-white hover:scale-105 transition-transform cursor-pointer">
         <img
           src={flags.svg}
@@ -25,7 +25,8 @@ function CountryCard({ country }: { country: countryType }) {
               <span className="font-semibold">Region:</span> {region}
             </li>
             <li className="text-sm">
-              <span className="font-semibold">Capital:</span> {capital}
+              <span className="font-semibold">Capital:</span>{" "}
+              {!capital ? "?" : Array.isArray(capital) ? capital[0] : capital}
             </li>
           </ul>
         </div>

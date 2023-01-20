@@ -8,11 +8,12 @@ export type filterOptions =
   | "europe";
 
 export type countryType = {
-  capital: string;
+  capital?: string | string[];
   flags: { png: string; svg: string };
   name: {
     common: string;
   };
   population: number;
   region: string;
+  subregion: string;
 };

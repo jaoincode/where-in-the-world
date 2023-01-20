@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
 import Countries from "../../components/Countries";
+import Loading from "../../components/Loading";
 
 import { countryType, filterOptions } from "../../types";
 
 function Home() {
+  const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState<countryType[] | null>([]);
   const [searchCountries, setSeachCountries] = useState<countryType[] | null>(
     []
@@ -19,9 +21,11 @@ function Home() {
     const data = await fetch("https://restcountries.com/v3.1/all");
     const countriesJson = await data.json();
     setCountries(countriesJson);
+    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchCountries();
   }, []);
 
@@ -51,6 +55,8 @@ function Home() {
 
     if (search && filter !== "all") setFilter("all");
   }, [search]);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto min-h-screen">
