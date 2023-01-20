@@ -53,7 +53,7 @@ function Home() {
   }, [search]);
 
   return (
-    <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto">
+    <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto min-h-screen">
       <div className="flex justify-between flex-col gap-4 px-3 md:flex-row md:gap-0 md:px-0 mt-16">
         <input
           type="text"
@@ -65,7 +65,7 @@ function Home() {
         <select
           disabled={!!search}
           id="countries"
-          className="w-full md:w-40  h-10 text-sm font-semibold opacity-90 cursor-pointer focus:opacity-100 bg-white dark:bg-slate-700 dark:text-white outline-none px-4 rounded-sm disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full md:w-40  h-10 text-sm font-semibold opacity-90 cursor-pointer focus:opacity-100 bg-white dark:bg-slate-700 dark:text-white outline-none px-4 rounded-sm disabled:opacity-70 disabled:cursor-not-allowed shadow-sm"
           name="regionFilter"
           value={filter}
           onChange={({ target }) => setFilter(target.value as filterOptions)}
@@ -87,7 +87,9 @@ function Home() {
       {countries && searchCountries && searchCountries.length > 0 && search && (
         <Countries countries={searchCountries} />
       )}
-      {countriesRegion && filter && <Countries countries={countriesRegion} />}
+      {countriesRegion && filter && !search && (
+        <Countries countries={countriesRegion} />
+      )}
     </div>
   );
 }
