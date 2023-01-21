@@ -10,18 +10,20 @@ import Loading from "../../components/Loading";
 
 function Country() {
   const [loading, setLoading] = useState(false);
-  const [country, setCountry] = useState<countryType[] | null>(null);
+  const [country, setCountry] = useState<countryType | null>(null);
   const { id } = useParams();
 
   const navigate = useNavigate();
 
   const getCountryInfo = async () => {
     const data = await fetch("https://restcountries.com/v3.1/all");
-    const countryJson = await data.json();
+    const countriesJson = await data.json();
 
-    setCountry(
-      countryJson.filter((country: countryType) => country.name.common === id)
+    const thisCountry = countriesJson.filter(
+      (country: countryType) => country.name.common === id
     );
+
+    setCountry(thisCountry[0]);
 
     setLoading(false);
   };
@@ -31,8 +33,8 @@ function Country() {
     getCountryInfo();
   }, [id]);
 
-  if (loading) return <Loading />;
-  if (!loading && country)
+  if (loading || !country) return <Loading />;
+  else
     return (
       <div className="max-w-sm md:max-w-6xl p-7 md:p-10 mx-auto min-h-screen">
         <div className="mt-20">
@@ -44,31 +46,31 @@ function Country() {
             Back
           </button>
           <div className="flex flex-col md:flex-row md:justify-center mt-10 md:mt-28 min-w-full gap-10 ">
-            <img src={country[0].flags.png} alt="country flag" />
+            <img src={country.flags.png} alt="country flag" />
             <div className="w-full md:w-5/6 pl-5 text-left relative">
               <h1 className="font-bold text-2xl mb-3 dark:text-white">
-                {country[0].name.common}
+                {country.name.common}
               </h1>
               <ul className="max-h-full md:max-h-9 dark:text-white">
                 <li>
                   <span className="font-semibold text-base">Population: </span>
-                  {country[0].population}
+                  {country.population}
                 </li>
                 <li>
                   <span className="font-semibold text-base">Region: </span>
-                  {country[0].region}
+                  {country.region}
                 </li>
                 <li>
                   <span className="font-semibold text-base">Sub Region: </span>
-                  {country[0].subregion}
+                  {country.subregion}
                 </li>
                 <li>
                   <span className="font-semibold text-base">Capital: </span>
-                  {!country[0].capital
+                  {!country.capital
                     ? "?"
-                    : Array.isArray(country[0].capital)
-                    ? country[0].capital[0]
-                    : country[0].capital}
+                    : Array.isArray(country.capital)
+                    ? country.capital[0]
+                    : country.capital}
                 </li>
               </ul>
             </div>
