@@ -4,7 +4,7 @@ Made with ReactJs, Typescript, TailwindCSS & React Router, this app shows a list
 
 ⚠️ this project is based on a frontend mentor challenge
 
-<img src="https://user-images.githubusercontent.com/92704272/213874437-f6683af7-4853-410c-8cc2-f1e3a8cdca5c.png" />
+<img src="https://user-images.githubusercontent.com/92704272/213877491-141396ef-ee29-482a-8560-e67c2a74406a.png" />
 
 ### You can view/use in:
 
